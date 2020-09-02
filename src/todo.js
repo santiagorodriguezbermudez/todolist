@@ -38,6 +38,10 @@ const ToDo = ((title, description, dueDate, priority) => {
     return this.checklistArray;
   };
 
+  const getCheckLists = () => {
+    this.checklistArray;
+  };
+
   return ({
     title,
     description,
@@ -50,6 +54,7 @@ const ToDo = ((title, description, dueDate, priority) => {
     editNotes,
     addItemToChecklist,
     deleteItemToChecklist,
+    getCheckLists,
   });
 });
 
