@@ -1,10 +1,7 @@
-function component() {
-  const element = document.createElement('div');
+import controller from './controller';
+import project from './project';
+import todo from './todo';
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
+window.onload = () => {
+  console.log(controller());
+};
