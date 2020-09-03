@@ -1,7 +1,12 @@
-import controller from './controller';
-import project from './project';
-import todo from './todo';
+import Controller from './controller';
+
 
 window.onload = () => {
-  console.log(controller());
+  Controller.start();
+};
+
+window.addProject = () => {
+  console.log('before');
+  Controller.addProject();
+  console.log('after');
 };
