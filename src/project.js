@@ -7,7 +7,6 @@ const Project = (title) => {
 
   const addTodoList = (todo) => {
     todoList.push(todo);
-    return this.todoList;
   };
 
   const removeTodoFromProject = (todo) => {

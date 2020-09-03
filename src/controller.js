@@ -3,7 +3,8 @@ import Project from './project';
 import View from './view';
 
 const Controller = (() => {
-  const projectsArr = [];
+  const testProject = Project('Testing Project');
+  const projectsArr = [testProject];
 
   const addToDo = () => {
     const title = document.getElementById('title').value;
@@ -15,15 +16,16 @@ const Controller = (() => {
     const selectedProject = project.options[project.selectedIndex].text;
     const todo = ToDo(title, description, dueDate, selectedPriority);
 
-    const projectIndex = projectsArr.indexOf(selectedProject);
+    const projectIndex = projectsArr.map(project => project.title).indexOf(selectedProject);
     projectsArr[projectIndex].addTodoList(todo);
+    View.addToDoToProject(projectIndex, todo);
   };
 
   const addProject = () => {
     const title = document.getElementById('project-title').value;
     const project = Project(title);
     projectsArr.push(project);
-    View.updateProjectView(project);
+    View.updateProjectView(project, projectsArr.length - 1);
     View.addProjectToSelectList(project);
   };
 

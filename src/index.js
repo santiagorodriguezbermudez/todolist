@@ -6,7 +6,9 @@ window.onload = () => {
 };
 
 window.addProject = () => {
-  console.log('before');
   Controller.addProject();
-  console.log('after');
+};
+
+window.addToDo = () => {
+  Controller.addToDo();
 };
