@@ -3,8 +3,41 @@
   <head>
     <title>To do List</title>
     <script src="https://unpkg.com/lodash@4.16.6"></script>
+    <script src="main.js" type="module"></script>
   </head>
   <body>
+    <h1>Add project</h1>
+    <form action="">
+      <label for="title">Project title</label>
+      <input type="text" name="project-title" id="project-title">
+      <button type="button" onclick="addProject()" id="add-project">Add project</button>
+    </form>
+
+    <h1>Add todo</h1>
+    <form action="">
+      <label for="title">Title</label>
+      <input type="text" name="title">
+
+      <label for="description">Description</label>
+      <input type="text" name="description" id="">
+
+      <label for="due-date">Due date</label>
+      <input type="datetime" name="due-date" id="">
+
+      <label for="priorities">Priority</label>
+      <select id="priorities" name="priorities">
+        <option value="low">Low</option>
+        <option value="high">High</option>
+      </select>
+
+      <label for="projects">Priority</label>
+      <select id="projects" name="projects">
+        <option value="Project 1">Project 1</option>
+        <option value="Project 2">Project 2</option>
+      </select>
+
+      <button type="button" onclick="addToDo()">Add todo</button>
+    </form>
     <script src="main.js"></script>
   </body>
 </html>
