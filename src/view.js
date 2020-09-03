@@ -1,13 +1,19 @@
 import { format, parseISO } from 'date-fns';
 
 const View = (() => {
+
+  const buttonComponent = (string, onclick) => {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = string;
+    deleteButton.setAttribute('onclick', onclick);
+    return deleteButton;
+  };
+
   const renderProjects = (project, parentElement, id) => {
     const projectWrapper = document.createElement('div');
     projectWrapper.id = id;
     const projectTitle = document.createElement('h3');
-    const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = 'Delete Project';
-    deleteButton.setAttribute('onclick', `deleteProject(${id})`);
+    const deleteButton = buttonComponent('Delete Project', `deleteProject(${id})`);
     projectTitle.innerHTML = project.title;
     projectWrapper.append(projectTitle);
     projectWrapper.append(deleteButton);
@@ -17,13 +23,14 @@ const View = (() => {
   const addToDoToProject = (projectId, toDo, toDoId) => {
     const currentProject = document.getElementById(`${projectId}`);
     const toDoWrapper = document.createElement('div');
-    toDoWrapper.id = `project-${projectId}-toDo-${toDoId}`;
     const title = document.createElement('p');
     const status = document.createElement('input');
-    status.type = 'checkbox';
     const description = document.createElement('p');
     const dueDate = document.createElement('span');
     const priority = document.createElement('span');
+    const deleteButton = buttonComponent('Delete To Do', `deleteToDo(${projectId}, ${toDoId})`);
+    status.type = 'checkbox';
+    toDoWrapper.id = `project-${projectId}-toDo-${toDoId}`;
     title.innerHTML = toDo.title;
     description.innerHTML = toDo.description;
     dueDate.innerHTML = format(parseISO(toDo.dueDate), 'MMM-dd-yy');
@@ -34,6 +41,7 @@ const View = (() => {
     toDoWrapper.append(description);
     toDoWrapper.append(dueDate);
     toDoWrapper.append(priority);
+    toDoWrapper.append(deleteButton);
   };
 
   const listProjects = (projectsArr) => {

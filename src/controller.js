@@ -38,9 +38,13 @@ const Controller = (() => {
   };
 
   const deleteProject = (projectId) => {
-    console.log('in here?');
     projectsArr.splice(projectId, 1);
-    console.log(projectsArr);
+    View.deleteProjects();
+    start();
+  };
+
+  const deleteToDo = (projectId, toDoId) => {
+    projectsArr[projectId].removeTodoFromProject(toDoId);
     View.deleteProjects();
     start();
   };
@@ -49,6 +53,7 @@ const Controller = (() => {
     addToDo,
     addProject,
     deleteProject,
+    deleteToDo,
     start,
   };
 })();

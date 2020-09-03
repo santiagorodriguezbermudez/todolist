@@ -9,14 +9,8 @@ const Project = (title) => {
     todoList.push(todo);
   };
 
-  const removeTodoFromProject = (todo) => {
-    const index = this.todoList.indexOf(todo);
-    if (index >= 0) {
-      this.todoList.splice(index, 1);
-    } else {
-      return -1;
-    }
-    return this.todoList;
+  const removeTodoFromProject = (toDoId) => {
+    todoList.splice(toDoId, 1);
   };
 
   const getTodosForProject = () => todoList;
