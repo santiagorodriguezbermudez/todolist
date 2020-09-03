@@ -8,6 +8,16 @@ const View = (() => {
     return deleteButton;
   };
 
+  const buttonForModal = (string, dataTarget, dataToogle) => {
+    const button = document.createElement('button');
+    button.innerHTML = string;
+    button.setAttribute('type', 'button');
+    button.setAttribute('class', 'btn btn-primary');
+    button.setAttribute('data-toggle', `${dataToogle}`);
+    button.setAttribute('data-target', `${dataTarget}`);
+    return button;
+  };
+
   const renderProjects = (project, parentElement, id) => {
     const projectWrapper = document.createElement('div');
     projectWrapper.id = id;
@@ -19,6 +29,37 @@ const View = (() => {
     parentElement.append(projectWrapper);
   };
 
+  const createModal = (id, toDo) => {
+    const modal = document.createElement('div');
+    modal.setAttribute('class', 'modal fade');
+    modal.id = id;
+    modal.setAttribute('tabindex', '-1');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-labelledby', 'exampleModalLabel');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `<div class='modal-dialog' role='document'>
+        <div class='modal-content'>
+        <div class='modal-header'>
+          <h5 class='modal-title' id='exampleModalLabel'>Title: ${toDo.title}</h5>
+          <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+            <span aria-hidden='true'>&times;</span>
+          </button>
+        </div>
+        <div class='modal-body'>
+          Description: ${toDo.description}<br>
+          Due Date: ${format(parseISO(toDo.dueDate), 'MMM-dd-yy')}<br>
+          Description: ${toDo.priority}<br>
+        </div>
+        <div class='modal-footer'>
+          <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+    return modal;
+  };
+
   const addToDoToProject = (projectId, toDo, toDoId) => {
     const currentProject = document.getElementById(`${projectId}`);
     const toDoWrapper = document.createElement('div');
@@ -28,8 +69,9 @@ const View = (() => {
     const dueDate = document.createElement('span');
     const priority = document.createElement('span');
     const deleteButton = buttonComponent('Delete To Do', `deleteToDo(${projectId}, ${toDoId})`);
+    const modalButton = buttonForModal('View To Do', `#project-${projectId}-toDo-${toDoId}`, 'modal');
+    const modalView = createModal(`project-${projectId}-toDo-${toDoId}`, toDo);
     status.type = 'checkbox';
-    toDoWrapper.id = `project-${projectId}-toDo-${toDoId}`;
     title.innerHTML = toDo.title;
     description.innerHTML = toDo.description;
     dueDate.innerHTML = format(parseISO(toDo.dueDate), 'MMM-dd-yy');
@@ -41,6 +83,8 @@ const View = (() => {
     toDoWrapper.append(dueDate);
     toDoWrapper.append(priority);
     toDoWrapper.append(deleteButton);
+    toDoWrapper.append(modalButton);
+    toDoWrapper.append(modalView);
   };
 
   const listProjects = (projectsArr) => {
