@@ -10,10 +10,30 @@ const View = (() => {
     parentElement.append(projectWrapper);
   };
 
+  const addToDoToProject = (id, todo) => {
+    const currentProject = document.getElementById(`${id}`);
+    const title = document.createElement('p');
+    const description = document.createElement('p');
+    const dueDate = document.createElement('span');
+    const priority = document.createElement('span');
+    title.innerHTML = todo.title;
+    description.innerHTML = todo.description;
+    console.log(todo.dueDate);
+    dueDate.innerHTML = format(parseISO(todo.dueDate), 'MMM-dd-yy');
+    priority.innerHTML = todo.priority;
+    currentProject.append(title);
+    currentProject.append(description);
+    currentProject.append(dueDate);
+    currentProject.append(priority);
+  };
+
   const listProjects = (projectsArr) => {
     const projectsListContainer = document.getElementById('projects-container');
 
-    projectsArr.forEach((project, index) => renderProjects(project, projectsListContainer, index));
+    projectsArr.forEach((project, index) => {
+      renderProjects(project, projectsListContainer, index);
+      project.getTodosForProject().forEach(todo => addToDoToProject(index, todo));
+    });
   };
 
   const updateProjectView = (project, index) => {
@@ -38,23 +58,6 @@ const View = (() => {
     optionElement.setAttribute('value', project.title);
     optionElement.innerHTML = project.title;
     selectListContainer.append(optionElement);
-  };
-
-  const addToDoToProject = (id, todo) => {
-    const currentProject = document.getElementById(`${id}`);
-    const title = document.createElement('p');
-    const description = document.createElement('p');
-    const dueDate = document.createElement('span');
-    const priority = document.createElement('span');
-    title.innerHTML = todo.title;
-    description.innerHTML = todo.description;
-    console.log(todo.dueDate);
-    dueDate.innerHTML = format(parseISO(todo.dueDate), 'MMM-dd-yy');
-    priority.innerHTML = todo.priority;
-    currentProject.append(title);
-    currentProject.append(description);
-    currentProject.append(dueDate);
-    currentProject.append(priority);
   };
 
   return {

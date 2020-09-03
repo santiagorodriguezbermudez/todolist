@@ -19,9 +19,7 @@ const Project = (title) => {
     return this.todoList;
   };
 
-  const getTodosForProject = () => {
-    return this.todoList;
-  };
+  const getTodosForProject = () => todoList;
 
   return {
     title,

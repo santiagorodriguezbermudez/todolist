@@ -4,6 +4,8 @@ import View from './view';
 
 const Controller = (() => {
   const testProject = Project('Testing Project');
+  const testTodo = ToDo('Test', 'Description', '2020-09-05', 'high');
+  testProject.addTodoList(testTodo);
   const projectsArr = [testProject];
 
   const addToDo = () => {
