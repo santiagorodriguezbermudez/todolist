@@ -1,6 +1,5 @@
 
 const ToDo = ((title, description, dueDate, priority) => {
-  let notes = '';
   let status = false;
 
   const checklistArray = [];
@@ -25,10 +24,6 @@ const ToDo = ((title, description, dueDate, priority) => {
     this.priority = priority;
   };
 
-  const editNotes = (newNotes) => {
-    notes = newNotes;
-  };
-
   const addItemToChecklist = (item) => {
     checklistArray.push(item);
     return this.checklistArray;
@@ -44,10 +39,6 @@ const ToDo = ((title, description, dueDate, priority) => {
     return this.checklistArray;
   };
 
-  const getCheckLists = () => {
-    return this.checklistArray;
-  };
-
   return ({
     title,
     description,
@@ -57,10 +48,8 @@ const ToDo = ((title, description, dueDate, priority) => {
     editDueDate,
     editPriority,
     editTitle,
-    editNotes,
     addItemToChecklist,
     deleteItemToChecklist,
-    getCheckLists,
     status,
     checkStatus,
     unCheckStatus,

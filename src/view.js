@@ -1,7 +1,6 @@
 import { format, parseISO } from 'date-fns';
 
 const View = (() => {
-
   const buttonComponent = (string, onclick) => {
     const deleteButton = document.createElement('button');
     deleteButton.innerHTML = string;
