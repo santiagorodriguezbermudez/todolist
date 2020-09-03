@@ -12,3 +12,7 @@ window.addProject = () => {
 window.addToDo = () => {
   Controller.addToDo();
 };
+
+window.deleteProject = (projectId) => {
+  Controller.deleteProject(projectId);
+};

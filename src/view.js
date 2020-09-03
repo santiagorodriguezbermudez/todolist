@@ -5,26 +5,35 @@ const View = (() => {
     const projectWrapper = document.createElement('div');
     projectWrapper.id = id;
     const projectTitle = document.createElement('h3');
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete Project';
+    deleteButton.setAttribute('onclick', `deleteProject(${id})`);
     projectTitle.innerHTML = project.title;
     projectWrapper.append(projectTitle);
+    projectWrapper.append(deleteButton);
     parentElement.append(projectWrapper);
   };
 
-  const addToDoToProject = (id, todo) => {
-    const currentProject = document.getElementById(`${id}`);
+  const addToDoToProject = (projectId, toDo, toDoId) => {
+    const currentProject = document.getElementById(`${projectId}`);
+    const toDoWrapper = document.createElement('div');
+    toDoWrapper.id = `project-${projectId}-toDo-${toDoId}`;
     const title = document.createElement('p');
+    const status = document.createElement('input');
+    status.type = 'checkbox';
     const description = document.createElement('p');
     const dueDate = document.createElement('span');
     const priority = document.createElement('span');
-    title.innerHTML = todo.title;
-    description.innerHTML = todo.description;
-    console.log(todo.dueDate);
-    dueDate.innerHTML = format(parseISO(todo.dueDate), 'MMM-dd-yy');
-    priority.innerHTML = todo.priority;
-    currentProject.append(title);
-    currentProject.append(description);
-    currentProject.append(dueDate);
-    currentProject.append(priority);
+    title.innerHTML = toDo.title;
+    description.innerHTML = toDo.description;
+    dueDate.innerHTML = format(parseISO(toDo.dueDate), 'MMM-dd-yy');
+    priority.innerHTML = toDo.priority;
+    currentProject.append(toDoWrapper);
+    toDoWrapper.append(title);
+    toDoWrapper.append(status);
+    toDoWrapper.append(description);
+    toDoWrapper.append(dueDate);
+    toDoWrapper.append(priority);
   };
 
   const listProjects = (projectsArr) => {
@@ -32,7 +41,7 @@ const View = (() => {
 
     projectsArr.forEach((project, index) => {
       renderProjects(project, projectsListContainer, index);
-      project.getTodosForProject().forEach(todo => addToDoToProject(index, todo));
+      project.getTodosForProject().forEach((toDo, toDoId) => addToDoToProject(index, toDo, toDoId));
     });
   };
 
@@ -60,12 +69,27 @@ const View = (() => {
     selectListContainer.append(optionElement);
   };
 
+  const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+
+  const deleteProjects = () => {
+    const projectsListContainer = document.getElementById('projects-container');
+    const selectListContainer = document.getElementById('projects');
+    removeAllChildNodes(projectsListContainer);
+    removeAllChildNodes(selectListContainer);
+  };
+
+
   return {
     listProjects,
     updateProjectView,
     updateProjectSelectList,
     addProjectToSelectList,
     addToDoToProject,
+    deleteProjects,
   };
 })();
 

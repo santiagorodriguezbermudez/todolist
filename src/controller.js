@@ -20,7 +20,8 @@ const Controller = (() => {
 
     const projectIndex = projectsArr.map(project => project.title).indexOf(selectedProject);
     projectsArr[projectIndex].addTodoList(todo);
-    View.addToDoToProject(projectIndex, todo);
+    const projectObj = projectsArr[projectIndex];
+    View.addToDoToProject(projectIndex, todo, projectObj.getTodosForProject().length - 1);
   };
 
   const addProject = () => {
@@ -36,9 +37,18 @@ const Controller = (() => {
     View.updateProjectSelectList(projectsArr);
   };
 
+  const deleteProject = (projectId) => {
+    console.log('in here?');
+    projectsArr.splice(projectId, 1);
+    console.log(projectsArr);
+    View.deleteProjects();
+    start();
+  };
+
   return {
     addToDo,
     addProject,
+    deleteProject,
     start,
   };
 })();

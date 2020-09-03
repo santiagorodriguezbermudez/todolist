@@ -1,11 +1,17 @@
 
 const ToDo = ((title, description, dueDate, priority) => {
   let notes = '';
+  let status = false;
+
   const checklistArray = [];
 
   const editTitle = (title) => {
     this.title = title;
   };
+
+  const checkStatus = () => { status = true; };
+
+  const unCheckStatus = () => { status = false; };
 
   const editDescription = (description) => {
     this.description = description;
@@ -55,6 +61,9 @@ const ToDo = ((title, description, dueDate, priority) => {
     addItemToChecklist,
     deleteItemToChecklist,
     getCheckLists,
+    status,
+    checkStatus,
+    unCheckStatus,
   });
 });
 
