@@ -39,7 +39,7 @@ const ToDo = ((title, description, dueDate, priority) => {
   };
 
   const getCheckLists = () => {
-    this.checklistArray;
+    return this.checklistArray;
   };
 
   return ({

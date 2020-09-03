@@ -1,6 +1,6 @@
 const Project = (title) => {
-  let todoList = [];
-  
+  const todoList = [];
+
   const editTitle = (title) => {
     this.title = title;
   };
@@ -21,7 +21,7 @@ const Project = (title) => {
   };
 
   const getTodosForProject = () => {
-    this.todoList;
+    return this.todoList;
   };
 
   return {
@@ -29,6 +29,8 @@ const Project = (title) => {
     addTodoList,
     editTitle,
     getTodosForProject,
-    removeTodoFromProject
-  }
-}
+    removeTodoFromProject,
+  };
+};
+
+export default Project;
