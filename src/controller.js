@@ -23,11 +23,13 @@ const Controller = (() => {
     const title = document.getElementById('project-title').value;
     const project = Project(title);
     projectsArr.push(project);
+    View.updateProjectView(project);
+    View.addProjectToSelectList(project);
   };
 
   const start = () => {
-    console.log(projectsArr);
     View.listProjects(projectsArr);
+    View.updateProjectSelectList(projectsArr);
   };
 
   return {
