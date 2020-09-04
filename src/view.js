@@ -22,11 +22,25 @@ const View = (() => {
     const projectWrapper = document.createElement('div');
     projectWrapper.id = id;
     const projectTitle = document.createElement('h3');
+    projectTitle.setAttribute('onfocus', `onProjectTitleClick(${id})`);
+    projectTitle.setAttribute('contenteditable', true);
+    projectTitle.id = `project-title-${id}`;
+
+    const updateProjectBtn = buttonComponent('Save project', `onProjectClickSave(${id})`);
+    updateProjectBtn.classList.toggle('d-none');
+    updateProjectBtn.id = `project-${id}`;
+
     const deleteButton = buttonComponent('Delete Project', `deleteProject(${id})`);
     projectTitle.innerHTML = project.title;
     projectWrapper.append(projectTitle);
+    projectWrapper.append(updateProjectBtn);
     projectWrapper.append(deleteButton);
     parentElement.append(projectWrapper);
+  };
+
+  const showSaveBtn = (projectId) => {
+    const saveBtn = document.getElementById(`project-${projectId}`);
+    saveBtn.classList.toggle('d-none');
   };
 
   const createModal = (id, toDo) => {
@@ -92,7 +106,7 @@ const View = (() => {
 
     projectsArr.forEach((project, index) => {
       renderProjects(project, projectsListContainer, index);
-      project.getTodosForProject().forEach((toDo, toDoId) => addToDoToProject(index, toDo, toDoId));
+      project.toDoList.forEach((toDo, toDoId) => addToDoToProject(index, toDo, toDoId));
     });
   };
 
@@ -161,6 +175,7 @@ const View = (() => {
     addToDoToProject,
     deleteProjects,
     clearForm,
+    showSaveBtn,
   };
 })();
 
