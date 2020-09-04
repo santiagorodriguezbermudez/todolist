@@ -12,8 +12,17 @@ const AppLocalStorage = (() => {
     localStorage.setItem(`${keyName}`, JSON.stringify(projects));
   };
 
+  const parseData = (keyName) => {
+    let data = JSON.parse(localStorage.getItem(`${keyName}`));
+    if (data === null) {
+      data = [];
+    }
+    return data;
+  };
+
   return {
     storeLocal,
+    parseData,
   };
 })();
 
