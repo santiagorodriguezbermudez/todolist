@@ -41,6 +41,7 @@ const Controller = (() => {
     const title = document.getElementById(`project-title-${projectId}`).innerHTML;
     AppLocalStorage.updateProject(projectId, title);
     View.showSaveBtn(projectId);
+    View.updateProjectSelectList(AppLocalStorage.parseData('projects'));
   };
 
   const start = () => {

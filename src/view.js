@@ -115,9 +115,15 @@ const View = (() => {
     renderProjects(project, projectsListContainer, index);
   };
 
+  const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+
   const updateProjectSelectList = (arrayProjects) => {
     const selectListContainer = document.getElementById('projects');
-
+    removeAllChildNodes(selectListContainer);
     arrayProjects.forEach((project) => {
       const optionElement = document.createElement('option');
       optionElement.setAttribute('value', project.title);
@@ -132,12 +138,6 @@ const View = (() => {
     optionElement.setAttribute('value', project.title);
     optionElement.innerHTML = project.title;
     selectListContainer.append(optionElement);
-  };
-
-  const removeAllChildNodes = (parent) => {
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-    }
   };
 
   const deleteProjects = () => {
