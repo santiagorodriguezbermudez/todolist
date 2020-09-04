@@ -26,7 +26,6 @@ const AppLocalStorage = (() => {
   };
 
   const updateProject = (projectIndex, projectTitle) => {
-    console.log(projectIndex);
     const projects = parseData('projects');
     const updatedProject = projects[projectIndex];
     updatedProject.title = projectTitle;
