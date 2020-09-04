@@ -133,6 +133,25 @@ const View = (() => {
     removeAllChildNodes(selectListContainer);
   };
 
+  const clearForm = (formId) => {
+    const formElements = document.getElementById(`${formId}`).elements;
+
+    for (let i = 0; i < formElements.length; i += 1) {
+      const fieldType = formElements[i].type.toLowerCase();
+
+      switch (fieldType) {
+        case 'text':
+        case 'date':
+          formElements[i].value = '';
+          break;
+        case 'select-one':
+          formElements[i].selectedIndex = 0;
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   return {
     listProjects,
@@ -141,6 +160,7 @@ const View = (() => {
     addProjectToSelectList,
     addToDoToProject,
     deleteProjects,
+    clearForm,
   };
 })();
 
