@@ -25,6 +25,25 @@ const AppLocalStorage = (() => {
     return projectIndex;
   };
 
+  const updateProject = (projectIndex, projectTitle) => {
+    console.log(projectIndex);
+    const projects = parseData('projects');
+    const updatedProject = projects[projectIndex];
+    updatedProject.title = projectTitle;
+    projects.splice(projectIndex, 1, updatedProject);
+    localStorage.setItem('projects', JSON.stringify(projects));
+  };
+
+  const updateProjectTodoList = (projectIndex, todo) => {
+    const projects = parseData('projects');
+    const updatedProject = projects[projectIndex];
+    updatedProject.toDoList.push(todo);
+    projects.splice(projectIndex, 1, updatedProject);
+    localStorage.setItem('projects', JSON.stringify(projects));
+
+    return updatedProject;
+  };
+
   const removeProject = (projectIndex) => {
     const projects = parseData('projects');
     projects.splice(projectIndex, 1);
@@ -44,8 +63,10 @@ const AppLocalStorage = (() => {
     storeLocal,
     parseData,
     getProjectByTitle,
+    updateProjectTodoList,
     removeProject,
     removeToDo,
+    updateProject,
   };
 })();
 
