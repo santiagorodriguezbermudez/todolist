@@ -20,3 +20,11 @@ window.deleteProject = (projectId) => {
 window.deleteToDo = (projectId, toDoId) => {
   Controller.deleteToDo(projectId, toDoId);
 };
+
+window.onProjectTitleClick = (projectId) => {
+  Controller.toggleSaveBtn(projectId);
+};
+
+window.onProjectClickSave = (projectId) => {
+  Controller.updateProjectTitle(projectId);
+};
