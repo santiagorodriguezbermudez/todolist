@@ -29,3 +29,11 @@ window.onProjectTitleClick = (projectId) => {
 window.onProjectClickSave = (projectId) => {
   Controller.updateProjectTitle(projectId);
 };
+
+window.createSelectedModalList = (modalId, projectTitle) => {
+  Controller.addSelectedProjectsToModal(modalId, projectTitle);
+};
+
+window.updateToDo = (modalId, projectId, toDoId) => {
+  Controller.updateToDo(modalId, projectId, toDoId);
+};

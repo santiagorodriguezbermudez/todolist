@@ -8,13 +8,20 @@ const View = (() => {
     return deleteButton;
   };
 
-  const buttonForModal = (string, dataTarget, dataToogle) => {
+  const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  };
+
+  const buttonForModal = (string, dataTarget, dataToogle, id, projectTitle) => {
     const button = document.createElement('button');
     button.innerHTML = string;
     button.setAttribute('type', 'button');
     button.setAttribute('class', 'btn btn-primary');
     button.setAttribute('data-toggle', `${dataToogle}`);
     button.setAttribute('data-target', `${dataTarget}`);
+    button.setAttribute('onclick', `createSelectedModalList('${id}-modal-project', '${projectTitle}')`);
     return button;
   };
 
@@ -44,7 +51,13 @@ const View = (() => {
     saveBtn.classList.toggle('d-none');
   };
 
-  const createModal = (id, toDo) => {
+  const showSaveBtnToDo = (modalId) => {
+    const saveBtn = document.getElementById(`savebutton-${modalId}`);
+    saveBtn.classList.toogle('d-none');
+  };
+
+  const createModal = (projectId, toDo, projectTitle, toDoId) => {
+    const id = `project-${projectId}-toDo-${toDoId}`;
     const modal = document.createElement('div');
     modal.setAttribute('class', 'modal fade');
     modal.id = id;
@@ -53,48 +66,58 @@ const View = (() => {
     modal.setAttribute('aria-labelledby', 'exampleModalLabel');
     modal.setAttribute('aria-hidden', 'true');
     modal.innerHTML = `<div class='modal-dialog' role='document'>
-        <div class='modal-content'>
-        <div class='modal-header'>
-          <h5 class='modal-title' id='exampleModalLabel'>Title: ${toDo.title}</h5>
-          <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-            <span aria-hidden='true'>&times;</span>
-          </button>
-        </div>
-        <div class='modal-body'>
-          Description: ${toDo.description}<br>
-          Due Date: ${format(parseISO(toDo.dueDate), 'MMM-dd-yy')}<br>
-          Description: ${toDo.priority}<br>
-        </div>
-        <div class='modal-footer'>
-          <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+          <div class='modal-content'>
+          <div class='modal-header'>
+            <h5 class='modal-title' id='exampleModalLabel'>Title: <span contentEditable=true id='${id}-modal-title'>${toDo.title}</span></h5>
+            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+            <label for="projects">Project</label>
+            <select id='${id}-modal-project'>${projectTitle}
+            </select>
+            <p>Description: <span contentEditable=true id='${id}-modal-description'>${toDo.description}</span></p>
+            <input type="date" name="due-date" id='${id}-modal-date' value="${toDo.dueDate}">
+            <label for="priorities">Priority</label>
+            <select id='${id}-modal-priority' name="priorities">
+              <option value="" disabled selected hidden>${toDo.priority}</option>
+              <option value="Low">Low</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div class='modal-footer'>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal' onclick="updateToDo('${id}', '${projectId}', '${toDoId}')" >Save</button>
+          </div>
         </div>
       </div>
-    </div>
-  </div>`;
-
+    </div>`;
     return modal;
   };
 
-  const addToDoToProject = (projectId, toDo, toDoId) => {
+  const addCurrentProjectToSelectedList = (modalId, projectTitle) => {
+    const selectListContainer = document.getElementById(modalId);
+    const optionElement = document.createElement('option');
+    optionElement.innerHTML = projectTitle;
+    optionElement.setAttribute('selected', true);
+    optionElement.setAttribute('hidden', true);
+    selectListContainer.append(optionElement);
+  };
+
+  const addToDoToProject = (projectId, toDo, toDoId, projectTitle) => {
     const currentProject = document.getElementById(`${projectId}`);
     const toDoWrapper = document.createElement('div');
     const title = document.createElement('p');
-    const status = document.createElement('input');
-    const description = document.createElement('p');
     const dueDate = document.createElement('span');
     const priority = document.createElement('span');
     const deleteButton = buttonComponent('Delete To Do', `deleteToDo(${projectId}, ${toDoId})`);
-    const modalButton = buttonForModal('View To Do', `#project-${projectId}-toDo-${toDoId}`, 'modal');
-    const modalView = createModal(`project-${projectId}-toDo-${toDoId}`, toDo);
-    status.type = 'checkbox';
+    const modalButton = buttonForModal('View To Do', `#project-${projectId}-toDo-${toDoId}`, 'modal', `project-${projectId}-toDo-${toDoId}`, projectTitle);
+    const modalView = createModal(projectId, toDo, projectTitle, toDoId);
     title.innerHTML = toDo.title;
-    description.innerHTML = toDo.description;
     dueDate.innerHTML = format(parseISO(toDo.dueDate), 'MMM-dd-yy');
     priority.innerHTML = toDo.priority;
     currentProject.append(toDoWrapper);
     toDoWrapper.append(title);
-    toDoWrapper.append(status);
-    toDoWrapper.append(description);
     toDoWrapper.append(dueDate);
     toDoWrapper.append(priority);
     toDoWrapper.append(deleteButton);
@@ -107,7 +130,7 @@ const View = (() => {
 
     projectsArr.forEach((project, index) => {
       renderProjects(project, projectsListContainer, index);
-      project.toDoList.forEach((toDo, toDoId) => addToDoToProject(index, toDo, toDoId));
+      project.toDoList.forEach((toDo, toDoId) => addToDoToProject(index, toDo, toDoId, project.title));
     });
   };
 
@@ -116,14 +139,8 @@ const View = (() => {
     renderProjects(project, projectsListContainer, index);
   };
 
-  const removeAllChildNodes = (parent) => {
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-    }
-  };
-
-  const updateProjectSelectList = (arrayProjects) => {
-    const selectListContainer = document.getElementById('projects');
+  const updateProjectSelectList = (arrayProjects, id) => {
+    const selectListContainer = document.getElementById(id);
     removeAllChildNodes(selectListContainer);
     arrayProjects.forEach((project) => {
       const optionElement = document.createElement('option');
@@ -177,6 +194,8 @@ const View = (() => {
     deleteProjects,
     clearForm,
     showSaveBtn,
+    showSaveBtnToDo,
+    addCurrentProjectToSelectedList,
   };
 })();
 
