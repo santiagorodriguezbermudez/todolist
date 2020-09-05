@@ -21,6 +21,7 @@ const View = (() => {
   const renderProjects = (project, parentElement, id) => {
     const projectWrapper = document.createElement('div');
     projectWrapper.id = id;
+    projectWrapper.classList('project-wraper');
     const projectTitle = document.createElement('h3');
     projectTitle.setAttribute('onfocus', `onProjectTitleClick(${id})`);
     projectTitle.setAttribute('contenteditable', true);

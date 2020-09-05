@@ -1,4 +1,5 @@
 import Controller from './controller';
+import './css/styles.scss';
 
 
 window.onload = () => {
