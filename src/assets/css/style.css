@@ -1,0 +1,28 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.add-section {
+  margin: 0 auto;
+}
+
+.projects-container {
+  height: 100vh;
+}
+
+.project-style {
+  margin: 1rem;
+  min-width: 250px;
+}
+
+.project-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.project-header h3 {
+  margin: 0 0.2rem;
+
+}

@@ -25,23 +25,37 @@ const View = (() => {
     return button;
   };
 
+  const addIconToButton = (buttonElement, classArray) => {
+    const icon = document.createElement('i');
+    icon.classList.add(...classArray);
+    buttonElement.append(icon);
+  };
+
   const renderProjects = (project, parentElement, id) => {
     const projectWrapper = document.createElement('div');
     projectWrapper.id = id;
+    projectWrapper.classList.add('project-style');
+    const projectHeader = document.createElement('div');
+    projectHeader.classList.add('project-header');
     const projectTitle = document.createElement('h3');
     projectTitle.setAttribute('onfocus', `onProjectTitleClick(${id})`);
     projectTitle.setAttribute('contenteditable', true);
     projectTitle.id = `project-title-${id}`;
 
-    const updateProjectBtn = buttonComponent('Save project', `onProjectClickSave(${id})`);
+    const updateProjectBtn = buttonComponent('', `onProjectClickSave(${id})`);
     updateProjectBtn.classList.toggle('d-none');
     updateProjectBtn.id = `project-${id}`;
+    updateProjectBtn.classList.add(...['btn', 'btn-success']);
+    addIconToButton(updateProjectBtn, ['far', 'fa-save']);
 
-    const deleteButton = buttonComponent('Delete Project', `deleteProject(${id})`);
+    const deleteButton = buttonComponent('', `deleteProject(${id})`);
+    addIconToButton(deleteButton, ['fas', 'fa-trash-alt']);
+    deleteButton.classList.add(...['btn', 'btn-danger']);
     projectTitle.innerHTML = project.title;
-    projectWrapper.append(projectTitle);
-    projectWrapper.append(updateProjectBtn);
-    projectWrapper.append(deleteButton);
+    projectWrapper.append(projectHeader);
+    projectHeader.append(projectTitle);
+    projectHeader.append(updateProjectBtn);
+    projectHeader.append(deleteButton);
     parentElement.append(projectWrapper);
   };
 
