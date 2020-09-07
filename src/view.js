@@ -152,7 +152,10 @@ const View = (() => {
 
     projectsArr.forEach((project, index) => {
       renderProjects(project, projectsListContainer, index);
-      project.toDoList.forEach((toDo, toDoId) => addToDoToProject(index, toDo, toDoId, project.title));
+      project.toDoList.forEach((toDo, toDoId) => addToDoToProject(index,
+        toDo,
+        toDoId,
+        project.title));
     });
   };
 
