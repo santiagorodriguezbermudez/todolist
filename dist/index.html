@@ -6,50 +6,74 @@
     <script src="main.js" type="module"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <!-- Google Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../src/assets/css/style.css">
+    <script src="https://kit.fontawesome.com/4c68ce4f85.js" crossorigin="anonymous"></script>
   </head>
   <body>
 
-    <navbar class="navbar navbar-light bg-light d-flex justify-content-center p-3">
+    <navbar class="navbar navbar-light bg-light d-flex justify-content-center">
       <a href="" class="navbar-brand">
         <img src="../src/assets/images/checklist.png" alt="" width="30" height="30" loading='lazy'>
       </a>
     </navbar>
-    <h1>Add project</h1>
-    <form action="" id="project-form">
-      <label for="title">Project title</label>
-      <input type="text" name="project-title" id="project-title">
-      <button type="button" onclick="addProject()" id="add-project">Add project</button>
-    </form>
 
-    <h1>Add todo</h1>
-    <form action="" id="todo-form">
-      <label for="title">Title</label>
-      <input type="text" name="title" id="title">
+    <div class="add-section shadow d-flex justify-content-center p-3 w-50">
+      <div class="add-project m-5">
+        <h3>Add project</h3>
+        <form action="" id="project-form">
+          <div class="form-group">
+            <label for="title">Project title</label>
+            <input type="text" name="project-title" id="project-title" class="form-control">
+            <small class='form-text text-muted'>Please enter a project name</small>
+          </div>
+          <button type="button" onclick="addProject()" id="add-project" class='btn btn-primary'>Add project</button>
+        </form>
+      </div>
 
-      <label for="description">Description</label>
-      <input type="text" name="description" id="description">
-
-      <label for="due-date">Due date</label>
-      <input type="date" name="due-date" id="due-date">
-
-      <label for="priorities">Priority</label>
-      <select id="priorities" name="priorities">
-        <option value="" disabled selected hidden>Choose a priority</option>
-        <option value="low">Low</option>
-        <option value="high">High</option>
-      </select>
-
-      <label for="projects">Project</label>
-      <select id="projects" name="projects">
-        <option value="" disabled selected hidden>Choose a project</option>
-      </select>
-
-      <button type="button" onclick="addToDo()">Add todo</button>
-    </form>
-    <div class="projects-container" id="projects-container">
-
+      <div class="add-todo m-5">
+        <h3>Add a To Do</h3>
+        <form action="" id="todo-form">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class='form-control'>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" class='form-control'>
+          </div>
+    
+          <div class="form-group">
+            <label for="due-date">Due date</label>
+            <input type="date" name="due-date" id="due-date" class='form-control'>
+          </div>
+    
+          <div class="form-group">
+            <label for="priorities">Priority</label>
+            <select id="priorities" name="priorities" class='form-control'>
+              <option value="" disabled selected hidden>Choose a priority</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+    
+          <div class="form-group">
+            <label for="projects">Project</label>
+            <select id="projects" name="projects" class='form-control'>
+              <option value="" disabled selected hidden>Choose a project</option>
+            </select>
+          </div>
+    
+          <button type="button" onclick="addToDo()" class='btn btn-primary'>Add todo</button>
+        </form>
+      </div>
     </div>
+
+
+    <div class="projects-container d-flex justify-content-between align-items-start m-2 px-4 py-3" id="projects-container"></div>
+
     <script src="main.js"></script>
     
     <!-- Optional JavaScript -->
