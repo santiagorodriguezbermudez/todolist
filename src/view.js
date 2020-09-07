@@ -86,21 +86,27 @@ const View = (() => {
               <span aria-hidden='true'>&times;</span>
             </button>
           </div>
-          <div class='modal-body'>
-            <label for="projects">Project</label>
-            <select id='${id}-modal-project'>${projectTitle}
-            </select>
-            <p>Description: <span contentEditable=true id='${id}-modal-description'>${toDo.description}</span></p>
-            <input type="date" name="due-date" id='${id}-modal-date' value="${toDo.dueDate}">
-            <label for="priorities">Priority</label>
-            <select id='${id}-modal-priority' name="priorities">
-              <option value="" disabled selected hidden>${toDo.priority}</option>
-              <option value="Low">Low</option>
-              <option value="High">High</option>
-            </select>
+          <div class='modal-body d-flex justify-content-between flex-column align-items-start'>
+            <div class='form-group>
+              <label for='${id}-modal-project'>Project</label>
+              <select id='${id}-modal-project' class='form-control'>${projectTitle}
+              </select>
+              <label for="${id}-modal-date" class='my-3'>Due Date: </label>
+              <input type="date" name="due-date" id='${id}-modal-date' value="${toDo.dueDate}"><br>
+            </div>
+            <div class='form-group'>
+              <label for="priorities">Priority</label>
+              <select id='${id}-modal-priority' name="priorities" class='form-control'>
+                <option value="" disabled selected hidden>${toDo.priority}</option>
+                <option value="Low">Low</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            <p class='mx-0'>Description: <span contentEditable=true id='${id}-modal-description'>${toDo.description}</span></p>
           </div>
           <div class='modal-footer'>
-            <button type='button' class='btn btn-secondary' data-dismiss='modal' onclick="updateToDo('${id}', '${projectId}', '${toDoId}')" >Save</button>
+            <span>Save changes</span>
+            <button type='button' class='btn btn-secondary' data-dismiss='modal' onclick="updateToDo('${id}', '${projectId}', '${toDoId}')" ><i class="far fa-save"></i></button>
           </div>
         </div>
       </div>
