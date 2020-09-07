@@ -120,15 +120,18 @@ const View = (() => {
   const addToDoToProject = (projectId, toDo, toDoId, projectTitle) => {
     const currentProject = document.getElementById(`${projectId}`);
     const toDoWrapper = document.createElement('div');
+    toDoWrapper.classList.add('todo-style');
     const title = document.createElement('p');
-    const dueDate = document.createElement('span');
-    const priority = document.createElement('span');
-    const deleteButton = buttonComponent('Delete To Do', `deleteToDo(${projectId}, ${toDoId})`);
-    const modalButton = buttonForModal('View To Do', `#project-${projectId}-toDo-${toDoId}`, 'modal', `project-${projectId}-toDo-${toDoId}`, projectTitle);
+    const dueDate = document.createElement('p');
+    const priority = document.createElement('p');
+    const deleteButton = buttonComponent('', `deleteToDo(${projectId}, ${toDoId})`);
+    deleteButton.classList.add(...['btn', 'btn-danger', 'mr-3']);
+    addIconToButton(deleteButton, ['far', 'fa-trash-alt']);
+    const modalButton = buttonForModal('View / Edit', `#project-${projectId}-toDo-${toDoId}`, 'modal', `project-${projectId}-toDo-${toDoId}`, projectTitle);
     const modalView = createModal(projectId, toDo, projectTitle, toDoId);
-    title.innerHTML = toDo.title;
-    dueDate.innerHTML = format(parseISO(toDo.dueDate), 'MMM-dd-yy');
-    priority.innerHTML = toDo.priority;
+    title.innerHTML = `Title: ${toDo.title}`;
+    dueDate.innerHTML = `Due date: ${format(parseISO(toDo.dueDate), 'MMM-dd-yy')}`;
+    priority.innerHTML = `Priority: ${toDo.priority}`;
     currentProject.append(toDoWrapper);
     toDoWrapper.append(title);
     toDoWrapper.append(dueDate);
