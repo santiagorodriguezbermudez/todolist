@@ -5,6 +5,7 @@
 .add-section {
   margin: 0 auto;
   border-radius: 1rem;
+  padding: 0;
 }
 
 .projects-container {
