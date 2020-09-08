@@ -17,12 +17,17 @@ const Controller = (() => {
     const selectedPriority = priority.options[priority.selectedIndex].text;
     const project = document.getElementById('projects');
     const selectedProject = project.options[project.selectedIndex].text;
-    const todo = ToDo(title, description, dueDate, selectedPriority);
     const projectIndex = AppLocalStorage.getProjectByTitle(selectedProject);
-    AppLocalStorage.updateProjectTodoList(projectIndex, todo);
-    View.deleteProjects();
-    start();
-    View.clearForm('todo-form');
+
+    if (title === '' || description === '' || dueDate === '' || selectedPriority === '' || selectedPriority === 'Choose a priority') {
+      View.alertForm('All fields must have a value');
+    } else {
+      const todo = ToDo(title, description, dueDate, selectedPriority);
+      AppLocalStorage.updateProjectTodoList(projectIndex, todo);
+      View.deleteProjects();
+      start();
+      View.clearForm('todo-form');
+    }
   };
 
   const updateToDo = (modalId, projectId, toDoId) => {
@@ -44,11 +49,15 @@ const Controller = (() => {
 
   const addProject = () => {
     const title = document.getElementById('project-title').value;
-    const project = Project(title, []);
-    AppLocalStorage.storeLocal('projects', project);
-    View.deleteProjects();
-    start();
-    View.clearForm('project-form');
+    if (title !== '') {
+      const project = Project(title, []);
+      AppLocalStorage.storeLocal('projects', project);
+      View.deleteProjects();
+      start();
+      View.clearForm('project-form');
+    } else {
+      View.alertForm('The project must have a name');
+    }
   };
 
   const toggleSaveBtn = (projectId) => {
