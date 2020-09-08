@@ -19,7 +19,7 @@ const Controller = (() => {
     const selectedProject = project.options[project.selectedIndex].text;
     const projectIndex = AppLocalStorage.getProjectByTitle(selectedProject);
 
-    if (title === '' || description === '' || dueDate === '' || selectedPriority === '' || selectedPriority === 'Choose a priority') {
+    if (title === '' || description === '' || dueDate === '' || selectedPriority === 'Choose a priority') {
       View.alertForm('All fields must have a value');
     } else {
       const todo = ToDo(title, description, dueDate, selectedPriority);
@@ -31,16 +31,27 @@ const Controller = (() => {
   };
 
   const updateToDo = (modalId, projectId, toDoId) => {
-    const title = document.getElementById(`${modalId}-modal-title`).innerHTML;
-    const description = document.getElementById(`${modalId}-modal-description`).innerHTML;
+    let title = document.getElementById(`${modalId}-modal-title`).innerHTML;
+    let description = document.getElementById(`${modalId}-modal-description`).innerHTML;
     const project = document.getElementById(`${modalId}-modal-project`);
     const priority = document.getElementById(`${modalId}-modal-priority`);
     const selectedPriority = priority.options[priority.selectedIndex].text;
     const selectedProject = project.options[project.selectedIndex].text;
     const projectIndex = AppLocalStorage.getProjectByTitle(selectedProject);
     const date = document.getElementById(`${modalId}-modal-date`).value;
-    const todo = ToDo(title, description, date, selectedPriority);
 
+    if (description === '') {
+      document.getElementById(`${modalId}-modal-description`).innerHTML = 'No Description';
+      description = 'No Description';
+    }
+
+    if (title === '') {
+      View.alertForm('To Do Title cannot be empty');
+      document.getElementById(`${modalId}-modal-title`).innerHTML = 'Unnamed';
+      title = 'Unnamed';
+    }
+
+    const todo = ToDo(title, description, date, selectedPriority);
     AppLocalStorage.removeToDo(projectId, toDoId);
     AppLocalStorage.updateProjectTodoList(projectIndex, todo);
     View.deleteProjects();
@@ -67,7 +78,14 @@ const Controller = (() => {
   const onToDoClick = (modalId) => View.showSaveBtnToDo(modalId);
 
   const updateProjectTitle = (projectId) => {
-    const title = document.getElementById(`project-title-${projectId}`).innerHTML;
+    let title = document.getElementById(`project-title-${projectId}`).innerHTML;
+
+    if (title === '') {
+      View.alertForm('The project title cannot be empty');
+      document.getElementById(`project-title-${projectId}`).innerHTML = 'Unnamed';
+      title = 'Unnamed';
+    }
+
     AppLocalStorage.updateProject(projectId, title);
     View.showSaveBtn(projectId);
     View.updateProjectSelectList(AppLocalStorage.parseData('projects'), 'projects');

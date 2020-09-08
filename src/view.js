@@ -59,6 +59,7 @@ const View = (() => {
     parentElement.append(projectWrapper);
   };
 
+  // eslint-disable-next-line no-alert
   const alertForm = errorString => alert(errorString);
 
   const showSaveBtn = (projectId) => {
