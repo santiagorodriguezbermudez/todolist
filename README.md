@@ -13,7 +13,7 @@ Building a To Do List App using JavaScript and Webpack. Learning how to apply Ob
 
 ## Live Demo
 
-[Play Around](https://raw.githack.com/santiagorodriguezbermudez/todolist/feature-todolist/dist/index.html)
+[Play Around](https://rawcdn.githack.com/santiagorodriguezbermudez/todolist/32e7b2a9bdd528f136d0722b89e97d68784d97e8/dist/index.html)
 
 ## Getting Started
 
