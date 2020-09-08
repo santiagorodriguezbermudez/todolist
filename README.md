@@ -2,7 +2,7 @@
 
 Building a To Do List App using JavaScript and Webpack. Learning how to apply Object Oriented Programming bes practices. 
 
-![screenshot]()
+![screenshot](./src/assets/images/screenshot.png))
 
 ## Built With
 
@@ -13,7 +13,7 @@ Building a To Do List App using JavaScript and Webpack. Learning how to apply Ob
 
 ## Live Demo
 
-[Work in Progress]()
+[Play Around](https://rawcdn.githack.com/santiagorodriguezbermudez/todolist/32e7b2a9bdd528f136d0722b89e97d68784d97e8/dist/index.html)
 
 ## Getting Started
 
