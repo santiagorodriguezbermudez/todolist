@@ -59,6 +59,8 @@ const View = (() => {
     parentElement.append(projectWrapper);
   };
 
+  const alertForm = errorString => alert(errorString);
+
   const showSaveBtn = (projectId) => {
     const saveBtn = document.getElementById(`project-${projectId}`);
     saveBtn.classList.toggle('d-none');
@@ -221,6 +223,7 @@ const View = (() => {
     showSaveBtn,
     showSaveBtnToDo,
     addCurrentProjectToSelectedList,
+    alertForm,
   };
 })();
 
